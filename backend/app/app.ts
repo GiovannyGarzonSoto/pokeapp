@@ -18,7 +18,7 @@ app.use(express.json())
 
 //multer configuration
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, '../public/uploads'),
+    destination: path.join(__dirname, '../dist/uploads'),
     filename(req, file, callback) {
         callback(null, new Date().getTime()+path.extname(file.originalname));
     }
@@ -29,6 +29,6 @@ app.use(multer({storage}).single('image'));
 app.use(require('./routes/'));
 
 //static files
-app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../dist')))
 
 export default app

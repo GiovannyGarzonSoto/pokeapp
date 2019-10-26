@@ -4,7 +4,6 @@
   "description": "a pokedex app",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
     "start": "node build/",
     "dev": "nodemon app/index.ts"
   },
