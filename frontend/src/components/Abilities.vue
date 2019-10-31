@@ -59,7 +59,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState(['abilities']),
     ...mapGetters(['allAbilities'])
   },
   methods: {
