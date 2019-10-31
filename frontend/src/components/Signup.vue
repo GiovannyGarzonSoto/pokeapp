@@ -1,32 +1,32 @@
 <template>
-   <div>
-        <h1>Registrate</h1>
-        <form @submit.prevent="signup">
-            <input type="text" name="name" placeholder="Nombre" required>
-            <input type="mail" placeholder="Correo">
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <input type="password" name="rePassword" placeholder="Repetir Contraseña" required>
-            <button>Registrarse</button>
-        </form>
-        O puedes <a href="">iniciar sesion</a> 
-   </div>
+  <div>
+   <h1>Signup</h1>
+  </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
+<script lang="ts">
+import Vue from 'vue';
 
-        }
-    },
-    methods: {
-        signup() {
-
-        }
-    }
-}
+export default Vue.extend({
+  name: 'Signup',
+  
+})
 </script>
 
-<style scoped lang="sass">
-
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
 </style>

@@ -1,53 +1,45 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Abilities from '../components/Abilities.vue'
-import Admin from '../components/Admin.vue'
-import Moves from '../components/Moves.vue'
-import Pokemon from '../components/Pokemon.vue'
+import VueRouter from 'vue-router'
+import Front from '../components/Front.vue'
 import Selector from '../components/Selector.vue'
 import Signin from '../components/Signin.vue'
 import Signup from '../components/Signup.vue'
+import Control from '../views/Control.vue'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
-  mode: 'history',
+const routes = [
+  {
+    path: '/',
+    name: 'front',
+    component: Front
+  },
+  {
+    path: '/selector',
+    name: 'selector',
+    component: Selector
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: Signup
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: Signin
+  },
+  {
+    path: '/control',
+    name: 'control',
+    component: Control
+  }
+]
+
+const router = new VueRouter({
+  mode: 'hash',
   base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'content',
-      component: Selector
-    },
-    {
-      path: '/signin',
-      name: 'signin',
-      component: Signin
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: Signup
-    },
-    {
-      path: '/control',
-      name: 'control',
-      component: Admin
-    },
-    {
-      path: '/abilities',
-      name: 'abilities',
-      component: Abilities
-    },
-    {
-      path: '/moves',
-      name: 'moves',
-      component: Moves
-    },
-    {
-      path: '/pokemon',
-      name: 'pokemon',
-      component: Pokemon
-    }
-  ]
+  routes
 })
+
+export default router

@@ -1,11 +1,10 @@
 <template>
   <div>
     <h1>Habilidades</h1>
-
     <div class="form">
       <form @submit.prevent="sendAbility">
-        <input type="text" v-model="ability.name" placeholder="Nombre">
-        <input type="text" v-model="ability.description" placeholder="Descripcion">
+        <input type="text" placeholder="Nombre" v-model="ability.name"> |
+        <input type="text" placeholder="Descripcion" v-model="ability.description"> |
         <template v-if="edit === false">
           <button>Guardar</button>
         </template>
@@ -14,7 +13,7 @@
         </template>
       </form>
     </div>
-
+    
     <table>
       <thead>
         <tr>
@@ -24,135 +23,105 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(ability, index) of abilities" :key="index">
-          <td>{{ability.nombre}}</td>
-          <td>{{ability.descripcion}}</td>
+        <tr v-for="ability of allAbilities" :key="ability._id">
+          <td>{{ability.name}}</td>
+          <td>{{ability.description}}</td>
           <td>
-            <button @click="updateAbility(ability.id)">Editar</button>
-            <button @click="removeAbility(ability.id)">Eliminar</button>
+            <button @click="updateAbility(ability._id)">Editar</button> | 
+            <button @click="removeAbility(ability._id)">Eliminar</button>
           </td>
         </tr>
       </tbody>
     </table>
-  
   </div>
 </template>
 
 <script>
+
+import Vue from 'vue';
 import axios from 'axios'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 
 class Ability {
   constructor(name, description) {
-    this.name = name;
-    this.description = description;
+    this.name = name
+    this.description = description
   }
 }
 
-export default {
+export default Vue.extend({
   name: 'Abilities',
   data() {
     return {
-      abilities: [],
       ability: new Ability(),
       editAbility: '',
-      edit: false,
-      apiUrl: 'http://127.0.0.1:3000/api/'
+      edit: false
     }
   },
+  computed: {
+    ...mapState(['abilities']),
+    ...mapGetters(['allAbilities'])
+  },
   methods: {
-    getAbilities() {
-      axios.get(`${this.apiUrl}abilities/`)
-      .then(response => this.abilities = response.data)
-      .catch(err => console.log(err))
-    },
-    sendAbility() {
-      if(this.edit == false){
-        axios.post('http://127.0.0.1:3000/api/abilities/', {
-          nombre: this.ability.name,
-          descripcion: this.ability.description
+    ...mapActions(['getAbilities']),
+
+    async sendAbility() {
+      if(this.edit == false) {
+        await axios.post('http://localhost:3666/api/abilities/', {
+          name: this.ability.name,
+          description: this.ability.description
         })
-        .then(response => {
-          this.ability = new Ability()
-          this.getAbilities()
-        })
+        this.ability = new Ability()
+        this.getAbilities()
       }else {
-        axios.put('http://127.0.0.1:3000/api/abilities/'+this.editAbility, {
-          nombre: this.ability.name,
-          descripcion: this.ability.description
+        await axios.put(`http://127.0.0.1:3666/api/abilities/${this.editAbility}`, {
+          name: this.ability.name,
+          description: this.ability.description
         })
-        .then(response => {
-          this.edit = false
-          this.getAbilities()
-          this.ability = new Ability()
-        })
-        .catch(err => console.log(err))
+        this.edit = false
+        this.getAbilities()
+        this.ability = new Ability()
       }
     },
-    updateAbility(id) {
-      axios.get(`http://127.0.0.1:3000/api/abilities/${id}`)
-      .then(response => {
-        let data = response.data[0]
-        this.ability = new Ability(data.nombre, data.descripcion)
-        this.editAbility = data.id
-        this.edit = true
-      })
-      .catch(err => console.log(err))
+    async updateAbility(id) {
+      const response = await axios.get(`http://127.0.0.1:3666/api/abilities/${id}`)
+      const data = response.data.data
+      this.ability = new Ability(data.name, data.description)
+      this.editAbility = data._id
+      this.edit = true
     },
-    removeAbility(id) {
-      axios.delete(`http://127.0.0.1:3000/api/abilities/${id}`)
-      .then(response => {
-        this.getAbilities()
-      })
-      .catch(err => console.log(err))
+    async removeAbility(id) {
+      await axios.delete(`http://127.0.0.1:3666/api/abilities/${id}`)
+      this.getAbilities()
     }
   },
   mounted() {
     this.getAbilities()
   }
-}
+})
 </script>
 
-<style lang="scss">
-h1{
-  text-align: center;
-}
-
-.form{
-  display: flex;
-  justify-content: center;
-}
-
-form{
-  display: flex;
-  flex-direction: column;
-  width: 20rem;
-
-  & input{
-    color: var(--color);
-    border-radius: 5px;
-    background: none;
-    border: 1px solid gray;
-    display: block;
-    padding: .3rem;
-    margin: .4rem;
+<style scoped lang="scss">
+  h3 {
+    margin: 40px 0 0;
   }
-
-  & button{
-    display: block;
-    width: 12rem;
-    margin: auto;
-    padding: .3rem;
-    border: 1px solid gray;
-    border-radius: 5px;
-    background: none;
-    color : var(--color);
+  ul {
+    list-style-type: none;
+    padding: 0;
   }
-}
-
-table{
-  display: flex;
-  width: 100vh;
-  justify-content: center;
-}
- 
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  a {
+    color: #42b983;
+  }
+  form{
+    margin-bottom: 1.4rem;
+  }
+  input{
+    border: 3px solid #2c3e50;
+    border-radius: 6px;
+    padding: .3rem;
+  }
 </style>

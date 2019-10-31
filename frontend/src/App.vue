@@ -1,74 +1,32 @@
 <template>
-  <div>
-    <nav>
-      <ul>
-        <li><a href="#">Portada</a></li>
-        <li><a href="#">Aplicacion</a></li>
-        <li><a href="#">Administrar</a></li>
-        <li><a href="#">Sobre mi</a></li>
-      </ul>
-    </nav>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Portada</router-link> |
+      <router-link to="/control">Control</router-link>
+    </div>
     <router-view/>
-
-    <footer>
-      <ul>
-        <li><a href="https://www.facebook.com/giovanny.grotesquecannibal" target="_blank"><i class="fab fa-facebook fa-2x"></i></a></li>
-        <li><a href="https://github.com/Giovanky" target="_blank"><i class="fab fa-github fa-2x"></i></a></li>
-        <li><a href="https://www.instagram.com/amorfadiccion" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
-      </ul>
-    </footer>
-      
   </div>
 </template>
 
-<script lang="ts">
-export default {
-
-}
-</script>
-
 <style lang="scss">
-:root{
-  --color: rgb(49, 49, 49);
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
-html{
-  box-sizing: border-box;
-  font-size: .9rem;
-  font-family: 'Roboto', sans-serif;
-  height: 100vh;
-  width: 100vw;
-}
-ul {
-  display: flex;
 
-  & li{
-    list-style: none;
+#nav {
+  padding: 30px;
 
-    & a{
-      display: block;
-      padding: .3rem 1rem;
-      
-      text-decoration: none;
-      color: var(--color);
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
     }
   }
 }
-
-footer{
-  position: absolute;
-  bottom: 0;
-
-  & ul{
-    display: flex;
-    width: calc(100vw - 5rem);
-    justify-content: center;
-    justify-items: center;
-
-    & li i{
-      height: 5rem;
-      width: 5rem;
-    }
-  }
-}
-
 </style>

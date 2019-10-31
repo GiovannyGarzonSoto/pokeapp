@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <h1>Signin</h1>
+  <div>
+    <h1>Front</h1>
   </div>
 </template>
 
@@ -8,9 +8,8 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'Signin',
-  
-});
+  name: 'Front',
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
