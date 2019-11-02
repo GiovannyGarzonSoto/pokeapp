@@ -65,8 +65,8 @@ export default Vue.extend({
     ...mapActions(['getAbilities']),
 
     async sendAbility() {
-      if(this.edit == false) {
-        await axios.post('http://localhost:3666/api/abilities/', {
+      if(!this.edit) {
+        await axios.post('http://localhost:3666/api/abilities', {
           name: this.ability.name,
           description: this.ability.description
         })

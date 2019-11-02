@@ -84,7 +84,7 @@ export default Vue.extend({
     ...mapActions(['getTypes', 'getClasses', 'getMoves']),
 
     async sendMove() {
-      if(this.edit == false){
+      if(!this.edit){
         await axios.post(`http://localhost:3666/api/moves`, {
           name: this.move.name,
           description: this.move.description,
