@@ -47,7 +47,6 @@ export default {
             }
         }
     }
-
     button{
         border: 3px solid #2c3e50;
         border-radius: 6px;

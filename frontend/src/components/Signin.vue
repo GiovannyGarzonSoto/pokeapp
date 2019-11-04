@@ -1,6 +1,12 @@
 <template>
   <div class="hello">
-    <h1>Signin</h1>
+    <h1>Iniciar Sesion</h1>
+    <form>
+      <input type="text" name="name" placeholder="Nombre">
+      <input type="email" placeholder="Correo">
+      <input type="password" name="password" placeholder="Contraseña">
+    </form>
+    <button>Volver</button>
   </div>
 </template>
 

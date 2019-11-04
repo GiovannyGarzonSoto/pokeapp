@@ -31,27 +31,27 @@ export default new Vuex.Store({
   },
   actions: {
     getAbilities: async({commit}) => {
-      const response = await axios.get(`http://localhost:3666/api/abilities`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/abilities`)
       commit('setAbilities', response.data.data)
     },
     getTypes: async({commit}) => {
-      const response = await axios.get(`http://localhost:3666/api/types`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/types`)
       commit('setTypes', response.data.data)
     },
     getClasses: async({commit}) => {
-      const response = await axios.get(`http://localhost:3666/api/classes`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/classes`)
       commit('setClasses', response.data.data)
     },
     getMoves: async({commit}) => {
-      const response = await axios.get(`http://localhost:3666/api/moves`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/moves`)
       commit('setMoves', response.data.data)
     },
     getPokemon: async({commit}) => {
-      const response = await axios.get(`http://localhost:3666/api/pokemon`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/pokemon`)
       commit('setPokemon', response.data.data)
     },
     getGroups: async({commit}) => {
-      const response = await axios.get(`http://localhost:3666/api/groups`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/groups`)
       commit('setGroups', response.data.data)
     }
   }

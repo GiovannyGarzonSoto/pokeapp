@@ -46,6 +46,7 @@
     <table>
       <thead>
         <tr>
+          <th>Nombre</th>
           <th>Habilidad</th>
           <th>Habilidad2</th>
           <th>Habilidad3</th>
@@ -54,7 +55,6 @@
           <th>Grupo</th>
           <th>Grupo2</th>
           <th>Numero</th>
-          <th>Nombre</th>
           <th>Descripcion</th>
           <th>Peso</th>
           <th>Altura</th>
@@ -69,6 +69,7 @@
       </thead>
       <tbody>
         <tr v-for="pkmn of allPokemon" :key="pkmn._id">
+          <td>{{pkmn.name}}</td>
           <td>{{pkmn.ability1.name}} </td>
           <td>{{pkmn.ability2.name}}</td>
           <td>{{pkmn.ability3.name}}</td>
@@ -77,7 +78,6 @@
           <td>{{pkmn.group1.name}}</td>
           <td>{{pkmn.group2.name}}</td>
           <td>{{pkmn.number}}</td>
-          <td>{{pkmn.name}}</td>
           <td>{{pkmn.description}}</td>
           <td>{{pkmn.weight}}</td>
           <td>{{pkmn.height}}</td>
@@ -88,7 +88,6 @@
           <td>{{pkmn.spDefense}}</td>
           <td>{{pkmn.speed}}</td>
           <td>
-            <button @click="updatePkmn(pkmn._id)">Editar</button>
             <button @click="removePkmn(pkmn._id)">Eliminar</button>
           </td>
         </tr>
@@ -142,30 +141,14 @@ export default Vue.extend({
     ...mapActions(['getPokemon', 'getTypes', 'getAbilities', 'getGroups']),
 
     async sendPkmn() {
-      if(!this.editPkmn){
-        const form = document.querySelector('.form')
-        const formData = new FormData(form)
-        await axios.post('http://127.0.0.1:3666/api/pokemon', formData)
-        this.getPokemon()
-        this.pkmn = new Pkmn()
-      }else {
-        const form = document.querySelector('.form')
-        const formData = new FormData(form)
-        await axios.put(`http://127.0.0.1:3666/api/pokemon/${this.editPokemon}`, formData)
-        this.edit = false
-        this.getPokemon()
-        this.pkmn = new Pkmn()
-      }
-    },
-    async updatePkmn(id) {
-      const response = await axios.get(`http://127.0.0.1:3666/api/pokemon/${id}`)
-      const data = response.data.data
-      this.pkmn = new Pkmn(data.ability1, data.ability2, data.ability3, data.type1, data.type2, data.group1, data.group2, data.number, data.name, data.description, data.weight, data.height, data.hp, data.attack, data.defense, data.spAttack, data.spDefense, data.speed)
-      this.editPkmn = data._id
-      this.edit = true
+      const form = document.querySelector('.form')
+      const formData = new FormData(form)
+      await axios.post(`${process.env.VUE_APP_URI}/pokemon`, formData)
+      this.getPokemon()
+      this.pkmn = new Pkmn()
     },
     async removePkmn(id) {
-      await axios.delete(`http://127.0.0.1:3666/api/pokemon/${id}`)
+      await axios.delete(`${process.env.VUE_APP_URI}/pokemon/${id}`)
       this.getPokemon()
     }
   },
@@ -193,5 +176,33 @@ export default Vue.extend({
   }
   a {
     color: #42b983;
+  }
+  form{
+  margin-bottom: 1.4rem;
+  }
+  input{
+    border: 3px solid #2c3e50;
+    border-radius: 6px;
+    padding: .3rem;
+  }
+  select{
+    display: block;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.1;
+    padding: .6em 1.4em .5em .8em;
+    width: 100%;
+    max-width: 100%; 
+    box-sizing: border-box;
+    margin: 0;
+    border: 3px solid #2c3e50;
+    border-radius: 6px;
+  }
+  textarea{
+    border: 3px solid #2c3e50;
+    border-radius: 6px;
+    padding: .3rem;
   }
 </style>

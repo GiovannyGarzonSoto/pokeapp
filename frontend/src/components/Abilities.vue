@@ -66,14 +66,14 @@ export default Vue.extend({
 
     async sendAbility() {
       if(!this.edit) {
-        await axios.post('http://localhost:3666/api/abilities', {
+        await axios.post(`${process.env.VUE_APP_URI}/abilities`, {
           name: this.ability.name,
           description: this.ability.description
         })
         this.ability = new Ability()
         this.getAbilities()
       }else {
-        await axios.put(`http://127.0.0.1:3666/api/abilities/${this.editAbility}`, {
+        await axios.put(`${process.env.VUE_APP_URI}/abilities/${this.editAbility}`, {
           name: this.ability.name,
           description: this.ability.description
         })
@@ -83,14 +83,14 @@ export default Vue.extend({
       }
     },
     async updateAbility(id) {
-      const response = await axios.get(`http://127.0.0.1:3666/api/abilities/${id}`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/abilities/${id}`)
       const data = response.data.data
       this.ability = new Ability(data.name, data.description)
       this.editAbility = data._id
       this.edit = true
     },
     async removeAbility(id) {
-      await axios.delete(`http://127.0.0.1:3666/api/abilities/${id}`)
+      await axios.delete(`${process.env.VUE_APP_URI}/abilities/${id}`)
       this.getAbilities()
     }
   },

@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Front from '../components/Front.vue'
-import Selector from '../components/Selector.vue'
-import Signin from '../components/Signin.vue'
-import Signup from '../components/Signup.vue'
-import Control from '../views/Control.vue'
 
 Vue.use(VueRouter)
+
+//lazy loading
+const Front = () => import('../components/Front.vue').then(m => m.default)
+const Selector = () => import('../components/Selector.vue').then(m => m.default)
+const Signin = () => import('../components/Signin.vue').then(m => m.default)
+const Signup = () => import('../components/Signup.vue').then(m => m.default)
+const Control = () => import('../views/Control.vue').then(m => m.default)
 
 const routes = [
   {
@@ -37,7 +39,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'hash',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

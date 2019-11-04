@@ -1,6 +1,14 @@
 <template>
   <div>
-   <h1>Signup</h1>
+   <h1>Registrarse</h1>
+   <form>
+     <input type="text" name="name" placeholder="Nombre">
+      <input type="email" placeholder="Correo">
+      <input type="password" name="password" placeholder="Contraseña">
+      <input type="password" name="password" placeholder="Repetir Contraseña">
+      <button type="submit">Enviar</button>
+   </form>
+   <button>Volver</button>
   </div>
 </template>
 

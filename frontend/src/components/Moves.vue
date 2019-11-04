@@ -85,7 +85,7 @@ export default Vue.extend({
 
     async sendMove() {
       if(!this.edit){
-        await axios.post(`http://localhost:3666/api/moves`, {
+        await axios.post(`${process.env.VUE_APP_URI}/moves`, {
           name: this.move.name,
           description: this.move.description,
           power: this.move.power,
@@ -96,7 +96,7 @@ export default Vue.extend({
         this.move = new Move()
         this.getMoves()
       }else {
-        await axios.put(`http://localhost:3666/api/moves/${this.editMove}`, {
+        await axios.put(`${process.env.VUE_APP_URI}/moves/${this.editMove}`, {
           name: this.move.name,
           description: this.move.description,
           power: this.move.power,
@@ -110,14 +110,14 @@ export default Vue.extend({
       }
     },
     async updateMove(id) {
-      const response = await axios.get(`http://127.0.0.1:3666/api/moves/${id}`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/moves/${id}`)
       const data = response.data.data
       this.move = new Move(data.name, data.description, data.power, data.accuracy, data.type, data.class)
       this.editMove = data._id
       this.edit = true
     },
     async removeMove(id) {
-      await axios.delete(`http://127.0.0.1:3666/api/moves/${id}`)
+      await axios.delete(`${process.env.VUE_APP_URI}/moves/${id}`)
       this.getMoves()
     }
   },
