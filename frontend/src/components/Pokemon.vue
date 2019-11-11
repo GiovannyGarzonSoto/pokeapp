@@ -1,28 +1,38 @@
 <template>
   <div>
     <h1>Pokemon</h1>
+
     <form @submit.prevent="sendPkmn" class="form" enctype="multipart/form-data">
-      <select v-model="pkmn.ability1" name="ability1">
-        <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
-      </select>
-      <select v-model="pkmn.ability2" name="ability2">
-        <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
-      </select>
-      <select v-model="pkmn.ability3" name="ability3">
-        <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
-      </select>
-      <select v-model="pkmn.type1" name="type1">
-        <option :value="type._id" v-for="type of allTypes" :key="type._id">{{type.name}}</option>
-      </select>
-      <select v-model="pkmn.type2" name="type2">
-        <option :value="type._id" v-for="type of allTypes" :key="type._id">{{type.name}}</option>
-      </select>
-      <select v-model="pkmn.group1" name="group1">
-        <option :value="group._id" v-for="group of allGroups" :key="group._id">{{group.name}}</option>
-      </select>
-      <select v-model="pkmn.group2" name="group2">
-        <option :value="group._id" v-for="group of allGroups" :key="group._id">{{group.name}}</option>
-      </select>
+      <div class="abilities">
+        <select v-model="pkmn.ability1" name="ability1">
+          <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
+        </select>
+        <select v-model="pkmn.ability2" name="ability2">
+          <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
+        </select>
+        <select v-model="pkmn.ability3" name="ability3">
+          <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
+        </select>
+      </div>
+
+      <div class="types">
+        <select v-model="pkmn.type1" name="type1">
+          <option :value="type._id" v-for="type of allTypes" :key="type._id">{{type.name}}</option>
+        </select>
+        <select v-model="pkmn.type2" name="type2">
+          <option :value="type._id" v-for="type of allTypes" :key="type._id">{{type.name}}</option>
+        </select>
+      </div>
+
+      <div class="groups">
+        <select v-model="pkmn.group1" name="group1">
+          <option :value="group._id" v-for="group of allGroups" :key="group._id">{{group.name}}</option>
+        </select>
+        <select v-model="pkmn.group2" name="group2">
+          <option :value="group._id" v-for="group of allGroups" :key="group._id">{{group.name}}</option>
+        </select>
+      </div>
+
       <input type="text" v-model="pkmn.number" placeholder="Numero" name="number">
       <input type="text" v-model="pkmn.name" placeholder="Nombre" name="name">
       <textarea v-model="pkmn.description" placeholder="Descripcion" name="description"></textarea>
@@ -47,14 +57,10 @@
       <thead>
         <tr>
           <th>Nombre</th>
-          <th>Habilidad</th>
-          <th>Habilidad2</th>
-          <th>Habilidad3</th>
+          <th>Habilidadades</th>
           <th>Tipo</th>
-          <th>Tipo2</th>
           <th>Grupo</th>
-          <th>Grupo2</th>
-          <th>Numero</th>
+          <th>N°</th>
           <th>Descripcion</th>
           <th>Peso</th>
           <th>Altura</th>
@@ -70,13 +76,9 @@
       <tbody>
         <tr v-for="pkmn of allPokemon" :key="pkmn._id">
           <td>{{pkmn.name}}</td>
-          <td>{{pkmn.ability1.name}} </td>
-          <td>{{pkmn.ability2.name}}</td>
-          <td>{{pkmn.ability3.name}}</td>
-          <td>{{pkmn.type1.name}}</td>
-          <td>{{pkmn.type2.name}}</td>
-          <td>{{pkmn.group1.name}}</td>
-          <td>{{pkmn.group2.name}}</td>
+          <td>{{pkmn.ability1.name}} {{pkmn.ability2.name}} {{pkmn.ability3.name}}</td>
+          <td>{{pkmn.type1.name}} {{pkmn.type2.name}}</td>
+          <td>{{pkmn.group1.name}} {{pkmn.group2.name}}</td>
           <td>{{pkmn.number}}</td>
           <td>{{pkmn.description}}</td>
           <td>{{pkmn.weight}}</td>
@@ -161,48 +163,64 @@ export default Vue.extend({
 })
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  h3 {
-    margin: 40px 0 0;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: #42b983;
+ main{
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
   }
   form{
-  margin-bottom: 1.4rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    & input{
+      margin-top: 1rem;
+      border: 2px solid #364c63;
+      border-radius: .8rem;
+      padding: .3rem;
+    }
+
+    & input[type="file"]{
+      background: none;
+    }
+
+    & select{
+      margin: .3rem;
+      font-family: sans-serif;
+      color: #2c3e50;
+      line-height: 1.1;
+      padding: .6em 1.4em .5em .8em;
+      border: 3px solid #2c3e50;
+      border-radius: .8rem;
+      width: 13rem;
+    }
+
+    & textarea{
+      margin-top: .8rem;
+      border: 2px solid #2c3e50;
+      border-radius: 1rem;
+      padding: .3rem;
+      width: 11rem;
+      height: 4rem;
+    }
   }
-  input{
+  button{
     border: 3px solid #2c3e50;
-    border-radius: 6px;
-    padding: .3rem;
-  }
-  select{
-    display: block;
-    font-size: 16px;
-    font-family: sans-serif;
-    font-weight: 700;
+    border-radius: 1rem;
+    background: none;
     color: #2c3e50;
-    line-height: 1.1;
-    padding: .6em 1.4em .5em .8em;
-    width: 100%;
-    max-width: 100%; 
-    box-sizing: border-box;
-    margin: 0;
-    border: 3px solid #2c3e50;
-    border-radius: 6px;
-  }
-  textarea{
-    border: 3px solid #2c3e50;
-    border-radius: 6px;
+    font-weight: bolder;
     padding: .3rem;
+    width: 13rem;
+    margin-top: 1rem;
+  }
+  table{
+    margin-top: 1rem;
+  }
+  button{
+    width: 5rem;
+    margin: .2rem;
   }
 </style>

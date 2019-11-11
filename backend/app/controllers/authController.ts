@@ -14,10 +14,7 @@ class AuthController {
             })
             newUser.password = await newUser.encryptPassword(newUser.password)
             await newUser.save()
-            const token = jwt.sign({id: newUser._id}, process.env.TOKEN_SEED || '0asg93ruoei89', {
-                expiresIn: 60 * 60 * 48
-            })
-            res.header('authorization', token).json({
+            res.json({
                 success: true,
                 data: newUser
             })

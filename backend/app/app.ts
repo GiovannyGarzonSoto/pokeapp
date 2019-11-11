@@ -4,6 +4,7 @@ import path from 'path'
 import multer from 'multer'
 import env from 'dotenv'
 import cors from 'cors'
+//import passport from 'passport'
 
 //initializations
 const app: Application = express()
@@ -17,6 +18,7 @@ app.use(cors())
 app.use(morgan('dev'))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
+//app.use(passport.initialize())
 
 //multer configuration
 const storage = multer.diskStorage({

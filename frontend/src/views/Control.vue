@@ -1,9 +1,9 @@
 <template>
     <div>
         <h1>Control</h1>
-        <button @click="selected = 'Abilities'">Habilidades</button> |
-        <button @click="selected = 'Moves'">Movimientos</button> |
-        <button @click="selected = 'Pokemon'">Pokemon</button>
+        <button @click="selected='Abilities'">Habilidades</button> |
+        <button @click="selected='Moves'">Movimientos</button> |
+        <button @click="selected='Pokemon'">Pokemon</button>
         <component :is="selected"></component>
     </div>
 </template>
@@ -27,15 +27,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        text-align: center;
+        color: #2c3e50;
     }
-
     #nav {
     padding: 30px;
         a {

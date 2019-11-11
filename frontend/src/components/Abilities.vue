@@ -1,18 +1,17 @@
 <template>
-  <div>
+  <main>
     <h1>Habilidades</h1>
-    <div class="form">
-      <form @submit.prevent="sendAbility">
-        <input type="text" placeholder="Nombre" v-model="ability.name"> |
-        <input type="text" placeholder="Descripcion" v-model="ability.description"> |
-        <template v-if="edit === false">
-          <button>Guardar</button>
-        </template>
-        <template v-else>
-          <button>Actualizar</button>
-        </template>
-      </form>
-    </div>
+
+    <form @submit.prevent="sendAbility">
+      <input type="text" placeholder="Nombre" v-model="ability.name"> 
+      <input type="text" placeholder="Descripcion" v-model="ability.description"> 
+      <template v-if="edit === false">
+        <button>Guardar</button>
+      </template>
+      <template v-else>
+        <button>Actualizar</button>
+      </template>
+    </form>
     
     <table>
       <thead>
@@ -26,14 +25,14 @@
         <tr v-for="ability of allAbilities" :key="ability._id">
           <td>{{ability.name}}</td>
           <td>{{ability.description}}</td>
-          <td>
-            <button @click="updateAbility(ability._id)">Editar</button> | 
+          <td class="buttons">
+            <button @click="updateAbility(ability._id)">Editar</button> 
             <button @click="removeAbility(ability._id)">Eliminar</button>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -101,26 +100,44 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-  h3 {
-    margin: 40px 0 0;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: #42b983;
+  main{
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
   }
   form{
-    margin-bottom: 1.4rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    & input{
+      margin-top: 1rem;
+      border: 2px solid #364c63;
+      border-radius: .8rem;
+      padding: .3rem;
+    }
   }
-  input{
+  button{
     border: 3px solid #2c3e50;
-    border-radius: 6px;
+    border-radius: 1rem;
+    background: none;
+    color: #2c3e50;
+    font-weight: bolder;
     padding: .3rem;
+    width: 13rem;
+    margin-top: 1rem;
+  }
+  table{
+    margin-top: 1rem;
+  }
+  .buttons{
+    display: flex;
+    justify-content: center;
+
+    & button{
+      width: 5rem;
+      margin: .2rem;
+    }
   }
 </style>

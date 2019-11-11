@@ -34,7 +34,7 @@ const userSchema = new Schema({
 userSchema.plugin(uniqueValidator, {message: 'El nombre de Usuario {PATH} ya existe'})
 
 userSchema.methods.encryptPassword = async(password: string): Promise<string> => {
-    const salt = await bcrypt.genSalt(10)
+    const salt = await bcrypt.genSalt(16)
     return bcrypt.hash(password, salt)
 }
 
