@@ -2,22 +2,22 @@
   <main>
     <h1>Iniciar Sesion</h1>
     <form>
-      <input type="text" name="name" placeholder="Nombre">
-      <input type="email" placeholder="Correo">
-      <input type="password" name="password" placeholder="Contraseña">
+      <input type="text" name="name" placeholder="Nombre" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
       <button>Enviar</button>
     </form>
-    <button>Volver</button>
+    <router-link to="/" tag="button">Volver</router-link>
   </main>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from 'vue'
+import axios from 'axios'
+import {} from 'vuex'
 
 export default Vue.extend({
-  name: 'Signin',
-  
-});
+  name: 'Signin'
+})
 </script>
 
 <style scoped lang="scss">

@@ -1,32 +1,56 @@
 <template>
-  <div>
-    <h1>Selector</h1>
-  </div>
+  <main>
+    <div class="container" v-for="pkmn of allPokemon" :key="pkmn._id">
+      <div class="visor">
+        <img :src="pkmn.imageUrl">
+      </div>
+      <div class="information">
+        <div class="types">
+          <img :src="pkmn.type1.imageUrl" :alt="pkmn.type1.name">
+          <img :src="pkmn.type2.imageUrl" :alt="pkmn.type2.name">
+        </div>
+        <div class="name">
+          <span>#00{{pkmn.number}}</span>
+          <span> {{pkmn.name}}</span>
+        </div>
+      </div>
+    </div>
+  </main>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
+<script>
+import Vue from 'vue'
+import { mapGetters, mapActions } from 'vuex'
 
 export default Vue.extend({
   name: 'Selector',
-  
+  data() {
+    return {
+    
+    }
+  },
+  computed: {
+    ...mapGetters(['allPokemon'])
+  },
+  methods: {
+    ...mapActions(['getPokemon'])
+  },
+  created(){
+    this.getPokemon()
+  }
 })
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
+main{
+  display: flex;
+  flex-direction: column;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.visor{
+
+  & img {
+    width: 15%;
+    height: 15%; 
+  }
 }
 </style>

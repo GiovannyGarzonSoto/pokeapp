@@ -44,7 +44,10 @@
       <input type="text" v-model="pkmn.spAttack" placeholder="Ataque Esp" name="spAttack">
       <input type="text" v-model="pkmn.spDefense" placeholder="Defensa Esp" name="spDefense">
       <input type="text" v-model="pkmn.speed" placeholder="Velocidad" name="speed">
-      <input type="file" name="image">
+      <label for="imagefile" class="image">
+        <i class="fas fa-cloud-upload-alt"></i> Subir archivo
+      </label>
+      <input type="file" id="imagefile" name="image">
       <template v-if="!edit">
         <button>Guardar</button>
       </template>
@@ -183,7 +186,7 @@ export default Vue.extend({
     }
 
     & input[type="file"]{
-      background: none;
+      display: none;
     }
 
     & select{
@@ -219,8 +222,18 @@ export default Vue.extend({
   table{
     margin-top: 1rem;
   }
-  button{
-    width: 5rem;
-    margin: .2rem;
+  .image{
+    border: 2px solid #2c3e50;
+    border-radius: 1rem;
+    background: none;
+    color: #2c3e50;
+    font-weight: bolder;
+    padding: .3rem;
+    width: 9rem;
+    margin-top: 1rem;
+
+    &:hover{
+      width: 10rem;
+    }
   }
 </style>
