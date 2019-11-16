@@ -4,50 +4,56 @@
 
     <form @submit.prevent="sendPkmn" class="form" enctype="multipart/form-data">
       <div class="abilities">
-        <select v-model="pkmn.ability1" name="ability1">
+        <select v-model="pkmn.ability1" name="ability1" required>
           <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
         </select>
-        <select v-model="pkmn.ability2" name="ability2">
+        <select v-model="pkmn.ability2" name="ability2" required>
           <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
         </select>
-        <select v-model="pkmn.ability3" name="ability3">
+        <select v-model="pkmn.ability3" name="ability3" required>
           <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
         </select>
       </div>
 
-      <div class="types">
-        <select v-model="pkmn.type1" name="type1">
+     <div class="types">
+        <select v-model="pkmn.type1" name="type1" required>
           <option :value="type._id" v-for="type of allTypes" :key="type._id">{{type.name}}</option>
         </select>
-        <select v-model="pkmn.type2" name="type2">
+        <select v-model="pkmn.type2" name="type2" required>
           <option :value="type._id" v-for="type of allTypes" :key="type._id">{{type.name}}</option>
         </select>
       </div>
-
+    
       <div class="groups">
-        <select v-model="pkmn.group1" name="group1">
+        <select v-model="pkmn.group1" name="group1" required>
           <option :value="group._id" v-for="group of allGroups" :key="group._id">{{group.name}}</option>
         </select>
-        <select v-model="pkmn.group2" name="group2">
+        <select v-model="pkmn.group2" name="group2" required>
           <option :value="group._id" v-for="group of allGroups" :key="group._id">{{group.name}}</option>
         </select>
       </div>
 
-      <input type="text" v-model="pkmn.number" placeholder="Numero" name="number">
-      <input type="text" v-model="pkmn.name" placeholder="Nombre" name="name">
-      <textarea v-model="pkmn.description" placeholder="Descripcion" name="description"></textarea>
-      <input type="text" v-model="pkmn.weight" placeholder="Peso" name="weight">
-      <input type="text" v-model="pkmn.height" placeholder="Altura" name="height">
-      <input type="text" v-model="pkmn.hp" placeholder="Hp" name="hp">
-      <input type="text" v-model="pkmn.attack" placeholder="Ataque" name="attack">
-      <input type="text" v-model="pkmn.defense" placeholder="Defensa" name="defense">
-      <input type="text" v-model="pkmn.spAttack" placeholder="Ataque Esp" name="spAttack">
-      <input type="text" v-model="pkmn.spDefense" placeholder="Defensa Esp" name="spDefense">
-      <input type="text" v-model="pkmn.speed" placeholder="Velocidad" name="speed">
-      <label for="imagefile" class="image">
-        <i class="fas fa-cloud-upload-alt"></i> Subir archivo
+      <input type="text" v-model="pkmn.number" placeholder="Numero" name="number" required>
+      <input type="text" v-model="pkmn.name" placeholder="Nombre" name="name" required>
+      <textarea v-model="pkmn.description" placeholder="Descripcion" name="description" required></textarea>
+      <div class="data">
+        <input type="text" v-model="pkmn.weight" placeholder="Peso" name="weight" required>
+        <input type="text" v-model="pkmn.height" placeholder="Altura" name="height" required>
+      </div>
+      <input type="text" v-model="pkmn.hp" placeholder="Hp" name="hp" required>
+      <div class="physical">
+        <input type="text" v-model="pkmn.attack" placeholder="Ataque" name="attack" required>
+        <input type="text" v-model="pkmn.defense" placeholder="Defensa" name="defense" required>
+      </div>
+      <div class="special">
+        <input type="text" v-model="pkmn.spAttack" placeholder="Ataque Esp" name="spAttack" required>
+        <input type="text" v-model="pkmn.spDefense" placeholder="Defensa Esp" name="spDefense" required>
+      </div>
+      <input type="text" v-model="pkmn.speed" placeholder="Velocidad" name="speed" required>
+      <label for="image" class="image">
+        <i class="fas fa-cloud-upload-alt"></i> Subir imagen
       </label>
-      <input type="file" id="imagefile" name="image">
+      <input type="file" id="image" name="image" required>
       <template v-if="!edit">
         <button>Guardar</button>
       </template>
@@ -103,7 +109,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from 'vue'
 import { mapGetters, mapActions } from 'vuex'
 import axios from 'axios'
 
@@ -183,6 +189,7 @@ export default Vue.extend({
       border: 2px solid #364c63;
       border-radius: .8rem;
       padding: .3rem;
+      margin: .3rem;
     }
 
     & input[type="file"]{

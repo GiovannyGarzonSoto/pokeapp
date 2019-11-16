@@ -3,8 +3,8 @@
     <h1>Habilidades</h1>
 
     <form @submit.prevent="sendAbility">
-      <input type="text" placeholder="Nombre" v-model="ability.name"> 
-      <input type="text" placeholder="Descripcion" v-model="ability.description"> 
+      <input type="text" placeholder="Nombre" v-model="ability.name" required> 
+      <input type="text" placeholder="Descripcion" v-model="ability.description" required> 
       <template v-if="edit === false">
         <button>Guardar</button>
       </template>

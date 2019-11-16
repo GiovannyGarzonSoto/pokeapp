@@ -10,7 +10,15 @@
           <img :src="pkmn.type2.imageUrl" :alt="pkmn.type2.name">
         </div>
         <div class="name">
-          <span>#00{{pkmn.number}}</span>
+          <template v-if="pkmn.number<10">
+            <span>#00{{pkmn.number}}</span>
+          </template>
+          <template v-else-if="pkmn.number<100">
+            <span>#0{{pkmn.number}}</span>
+          </template>
+          <template v-else>
+            <span>#{{pkmn.number}}</span>
+          </template>
           <span> {{pkmn.name}}</span>
         </div>
       </div>

@@ -3,16 +3,16 @@
     <h1>Movimientos</h1>
 
     <form @submit.prevent="sendMove">
-      <select v-model="move.type">
+      <select v-model="move.type" required>
         <option :value="type._id" v-for="type of allTypes" :key="type._id"> {{type.name}} </option>
       </select>
-      <select v-model="move.clase">
+      <select v-model="move.clase" required>
         <option :value="clase._id" v-for="clase of allClasses" :key="clase._id"> {{clase.name}} </option>
       </select>
-      <input type="text" v-model="move.name" placeholder="Movimiento">
-      <textarea type="text" placeholder="Descripcion" v-model="move.description"/>
-      <input type="text" placeholder="Potencia" v-model="move.power">
-      <input type="text" placeholder="Precision" v-model="move.accuracy">
+      <input type="text" v-model="move.name" placeholder="Movimiento" required>
+      <textarea type="text" placeholder="Descripcion" v-model="move.description" required/>
+      <input type="text" placeholder="Potencia" v-model="move.power" required>
+      <input type="text" placeholder="Precision" v-model="move.accuracy" required>
       <template v-if="edit === false">
         <button>Guardar</button>
       </template>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from 'vue'
 import axios from 'axios'
 import { mapGetters, mapActions } from 'vuex'
 

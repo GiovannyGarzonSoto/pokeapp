@@ -59,15 +59,13 @@ class MovesController {
     public async add(req: Request, res: Response): Promise<Response> {
         try{
             const {name, description, power, accuracy, type, clase } = req.body
-            const _type = await Types.findById(type)
-            const _class = await Classes.findById(clase)
             const newMove: IMoves = new Moves({
                 name,
                 description,
                 power,
                 accuracy,
-                type: _type._id,
-                clase: _class._id
+                type,
+                clase
             })
             await newMove.save()
             res.json({
