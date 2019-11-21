@@ -16,6 +16,6 @@ app.use('/api/groups', groupsRoutes)
 app.use('/api/moves', movesRoutes)
 app.use('/api/pokemon', pokemonRoutes)
 app.use('/api/types', typesRoutes)
-app.use('/api/auth', authRoutes)
+app.use('/api/', authRoutes)
 
 module.exports = app

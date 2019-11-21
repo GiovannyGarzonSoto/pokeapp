@@ -11,8 +11,8 @@
       </select>
       <input type="text" v-model="move.name" placeholder="Movimiento" required>
       <textarea type="text" placeholder="Descripcion" v-model="move.description" required/>
-      <input type="text" placeholder="Potencia" v-model="move.power" required>
-      <input type="text" placeholder="Precision" v-model="move.accuracy" required>
+      <input type="text" placeholder="Potencia" v-model="move.power">
+      <input type="text" placeholder="Precision" v-model="move.accuracy">
       <template v-if="edit === false">
         <button>Guardar</button>
       </template>

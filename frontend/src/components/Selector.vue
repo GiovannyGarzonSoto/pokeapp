@@ -54,11 +54,13 @@ main{
   display: flex;
   flex-direction: column;
 }
+.container{
+  margin: 1rem;
+}
 .visor{
 
   & img {
-    width: 15%;
-    height: 15%; 
+    width: 30%; 
   }
 }
 </style>
