@@ -6,7 +6,6 @@ import movesRoutes from './movesRoutes'
 import pokemonRoutes from './pokemonRoutes'
 import typesRoutes from './typesRoutes'
 import authRoutes from './authRoutes'
-import {verifyToken} from '../middlewares/verifyToken'
 
 const app: Application = express()
 

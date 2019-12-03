@@ -1,22 +1,50 @@
 <template>
   <main>
     <h1>Iniciar Sesion</h1>
-    <form>
-      <input type="text" name="name" placeholder="Nombre" required>
-      <input type="password" name="password" placeholder="Contraseña" required>
+    <form @submit.prevent="signin">
+      <input type="text" name="name" placeholder="Nombre" v-model="user.name" required>
+      <input type="password" name="password" placeholder="Contraseña" v-model="user.password" required>
       <button>Enviar</button>
     </form>
     <router-link to="/" tag="button">Volver</router-link>
   </main>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import axios from 'axios'
-import {} from 'vuex'
+import vuex, { mapState, mapActions } from 'vuex'
+
+class User {
+  constructor(name, email, password) {
+    this.name = name
+    this.email = email
+    this.password = password
+  }
+}
 
 export default Vue.extend({
-  name: 'Signin'
+  name: 'Signin',
+  data() {
+    return {
+      user: new User()
+    }
+  },
+  computed: {
+    ...mapState(['token'])
+  },
+  methods: {
+    ...mapActions(['saveUser']),
+    async signin() {
+      const data = await axios.post(`${process.env.VUE_APP_URI}/signin`, {
+        name: this.user.name,
+        password: this.user.password
+      })
+      this.user = new User()
+      const token = data.data.token
+      this.saveUser(token)
+    }
+  }
 })
 </script>
 

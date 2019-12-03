@@ -54,7 +54,7 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 class Move {
   constructor( name, description, power, accuracy, type, clase) {
@@ -73,10 +73,14 @@ export default Vue.extend({
     return {
       move: new Move(),
       editMove: '',
-      edit: false
+      edit: false,
+      headers: {
+        headers: this.token
+      }
     }
   },
   computed: {
+    ...mapState(['token']),
     ...mapGetters(['allTypes', 'allClasses', 'allMoves'])
   },
   methods: {
@@ -91,7 +95,7 @@ export default Vue.extend({
           accuracy: this.move.accuracy,
           type: this.move.type,
           clase: this.move.clase
-        })
+        }, {headers: {token: this.token}})
         this.move = new Move()
         this.getMoves()
       }else {
@@ -102,21 +106,21 @@ export default Vue.extend({
           accuracy: this.move.accuracy,
           type: this.move.type,
           clase: this.move.clase
-        })
+        }, {headers: {token: this.token}})
         this.edit = false
         this.getMoves()
         this.moves = new Move()
       }
     },
     async updateMove(id) {
-      const response = await axios.get(`${process.env.VUE_APP_URI}/moves/${id}`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/moves/${id}`, {headers: {token: this.token}})
       const data = response.data.data
       this.move = new Move(data.name, data.description, data.power, data.accuracy, data.type, data.class)
       this.editMove = data._id
       this.edit = true
     },
     async removeMove(id) {
-      await axios.delete(`${process.env.VUE_APP_URI}/moves/${id}`)
+      await axios.delete(`${process.env.VUE_APP_URI}/moves/${id}`, {headers: {token: this.token}})
       this.getMoves()
     }
   },

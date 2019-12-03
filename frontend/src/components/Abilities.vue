@@ -1,7 +1,6 @@
 <template>
   <main>
     <h1>Habilidades</h1>
-
     <form @submit.prevent="sendAbility">
       <input type="text" placeholder="Nombre" v-model="ability.name" required> 
       <input type="text" placeholder="Descripcion" v-model="ability.description" required> 
@@ -36,10 +35,9 @@
 </template>
 
 <script>
-
 import Vue from 'vue';
 import axios from 'axios'
-import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 class Ability {
   constructor(name, description) {
@@ -58,38 +56,42 @@ export default Vue.extend({
     }
   },
   computed: {
+    ...mapState(['token']),
     ...mapGetters(['allAbilities'])
+    
   },
   methods: {
     ...mapActions(['getAbilities']),
 
     async sendAbility() {
       if(!this.edit) {
-        await axios.post(`${process.env.VUE_APP_URI}/abilities`, {
+        const token = sessionStorage.getItem('token')
+        console.log(token)
+        const data = await axios.post(`${process.env.VUE_APP_URI}/abilities`, {
           name: this.ability.name,
           description: this.ability.description
-        })
+        }, {headers: {token: this.token}})
         this.ability = new Ability()
         this.getAbilities()
       }else {
         await axios.put(`${process.env.VUE_APP_URI}/abilities/${this.editAbility}`, {
           name: this.ability.name,
           description: this.ability.description
-        })
+        }, {headers: {token: this.token}})
         this.edit = false
         this.getAbilities()
         this.ability = new Ability()
       }
     },
     async updateAbility(id) {
-      const response = await axios.get(`${process.env.VUE_APP_URI}/abilities/${id}`)
+      const response = await axios.get(`${process.env.VUE_APP_URI}/abilities/${id}`, {headers: {token: this.token}})
       const data = response.data.data
       this.ability = new Ability(data.name, data.description)
       this.editAbility = data._id
       this.edit = true
     },
     async removeAbility(id) {
-      await axios.delete(`${process.env.VUE_APP_URI}/abilities/${id}`)
+      await axios.delete(`${process.env.VUE_APP_URI}/abilities/${id}`, {headers: {token: this.token}})
       this.getAbilities()
     }
   },

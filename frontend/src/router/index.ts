@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -19,7 +20,8 @@ const routes = [
   {
     path: '/selector',
     name: 'selector',
-    component: Selector
+    component: Selector,
+    meta: {requireAuth: true}
   },
   {
     path: '/signup',
@@ -34,7 +36,8 @@ const routes = [
   {
     path: '/control',
     name: 'control',
-    component: Control
+    component: Control,
+    meta: {requireAuth: true}
   }
 ]
 
@@ -42,6 +45,15 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const protectedRoutes = to.matched.some(record => record.meta.requireAuth)
+  if(protectedRoutes && store.state.token === ''){
+    next({name: 'signin'})
+  }else{
+    next()
+  }
 })
 
 export default router

@@ -1,12 +1,13 @@
 import { model, Document, Schema} from 'mongoose'
-import uniqueValidator from 'mongoose-unique-validator'
 import bcrypt from 'bcryptjs'
 
 export interface IUsers extends Document{
     name: string
-    email: string
+    email?: string
     password: string
     google?: boolean
+    role?: string
+    active?: boolean
     encryptPassword(password: string): Promise<string>
     validatePassword(password: string): Promise<boolean>
 }
@@ -14,12 +15,10 @@ export interface IUsers extends Document{
 const userSchema = new Schema({
     name: {
         type: String,
-        unique: true,
         required: [true, 'El nombre de Usuario es obligatorio']
     },
     email: {
-        type: String,
-        required: false
+        type: String
     },
     password: {
         type: String,
@@ -28,10 +27,16 @@ const userSchema = new Schema({
     google: {
         type: Boolean,
         default: false
+    },
+    role: {
+        type: String,
+        default: 'USER'
+    },
+    active: {
+        type: Boolean,
+        default: true
     }
 })
-
-userSchema.plugin(uniqueValidator, {message: 'El nombre de Usuario {PATH} ya existe'})
 
 userSchema.methods.encryptPassword = async(password: string): Promise<string> => {
     const salt = await bcrypt.genSalt(16)

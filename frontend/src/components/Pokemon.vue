@@ -110,7 +110,7 @@
 
 <script>
 import Vue from 'vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import axios from 'axios'
 
 class Pkmn {
@@ -142,10 +142,14 @@ export default Vue.extend({
     return {
       pkmn: new Pkmn(),
       editPokemon: '',
-      edit: false
+      edit: false,
+      headers: {
+        headers: this.token
+      }
     }
   },
   computed: {
+    ...mapState(['token']),
     ...mapGetters(['allPokemon', 'allTypes', 'allAbilities', 'allGroups'])
   },
   methods: {
@@ -154,12 +158,12 @@ export default Vue.extend({
     async sendPkmn() {
       const form = document.querySelector('.form')
       const formData = new FormData(form)
-      await axios.post(`${process.env.VUE_APP_URI}/pokemon`, formData)
+      await axios.post(`${process.env.VUE_APP_URI}/pokemon`, formData, {headers: {token: this.token}})
       this.getPokemon()
       this.pkmn = new Pkmn()
     },
     async removePkmn(id) {
-      await axios.delete(`${process.env.VUE_APP_URI}/pokemon/${id}`)
+      await axios.delete(`${process.env.VUE_APP_URI}/pokemon/${id}`, {headers: {token: this.token}})
       this.getPokemon()
     }
   },

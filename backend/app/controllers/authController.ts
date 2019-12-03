@@ -2,39 +2,30 @@ import { Request, Response } from 'express'
 import Users, {IUsers} from '../models/Users'
 import jwt from 'jsonwebtoken'
 
-const signToken = user => {
-    return jwt.sign({
-        iss: 'Bpp bpp bpp',
-        sub: user._id,
-        iat: new Date().getTime(), //curent time
-        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
-    }, process.env.TOKEN_SECRET || 'alkjsdu89ioj')
-}
-
 class AuthController {
     public async signup(req: Request, res: Response): Promise<Response> {
         try{
-            const {name, email, password, google} = req.body
+            const {name, email, password, google, role, active} = req.body
             const newUser: IUsers = new Users({
                 name,
                 email,
                 password,
-                google
+                google,
+                role,
+                active
             }) 
             newUser.password = await newUser.encryptPassword(newUser.password)
-            const user = await newUser.save()
+            const data = await newUser.save()
 
-            if(!user) {
+            if(!data) {
                 return res.status(500).json({
                     success: false,
                     message: 'No se pudo registrar el Usuario'
                 })
             }
-
-            const token = signToken(user)
-
-            res.header({token}).json({
-                success: true
+            res.json({
+                success: true,
+                data
             })
         }catch(err){
             return res.status(500).json({
@@ -47,7 +38,7 @@ class AuthController {
 
     public async signin(req: Request, res: Response): Promise<Response> {
         try{
-            const data = await Users.findOne({email: req.body.email})
+            const data = await Users.findOne({name: req.body.name})
             if(!data) {
                 return res.status(400).json({
                     sucess: false,
@@ -61,12 +52,20 @@ class AuthController {
                     message: 'Contraseña erronea'
                 })
             }
-            const token = jwt.sign({id: data._id}, process.env.TOKEN_SECRET || 'alkjsdu89ioj', {
-                expiresIn: 60 * 60 * 24
+
+            const payload = {
+                _id: data._id,
+                name: data.name,
+                role: data.role
+            }
+
+            const token = jwt.sign(payload, process.env.SEED, {
+                expiresIn: 60*60*2
             })
-            res.header('authotization', token).json({
+
+            res.json({
                 success: true,
-                data
+                token
             })
         }catch(err){
             return res.status(400).json({
@@ -75,10 +74,6 @@ class AuthController {
                 err
             })
         }
-    }
-
-    public async profile (req: Request , res: Response): Promise<void> {
-        console.log('workssss')
     }
 }
 

@@ -1,5 +1,6 @@
 import {Router} from 'express'
 import {abilitiesController} from '../controllers/abilitiesController'
+import { isAuthenticated, isAdmin} from '../middlewares/authenticated'
 
 const router: Router = Router()
 
@@ -7,10 +8,10 @@ router.get('/', abilitiesController.listAll)
 
 router.get('/:id', abilitiesController.list)
 
-router.post('/', abilitiesController.add)
+router.post('/', [isAuthenticated, isAdmin], abilitiesController.add)
 
-router.put('/:id', abilitiesController.update)
+router.put('/:id', [isAuthenticated, isAdmin], abilitiesController.update)
 
-router.delete('/:id', abilitiesController.delete)
+router.delete('/:id', [isAuthenticated, isAdmin], abilitiesController.delete)
 
 export default router

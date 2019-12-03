@@ -58,7 +58,6 @@ main{
   margin: 1rem;
 }
 .visor{
-
   & img {
     width: 30%; 
   }

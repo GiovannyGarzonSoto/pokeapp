@@ -1,12 +1,11 @@
 <template>
   <main>
    <h1>Registrarse</h1>
-   <form>
-      <input type="text" name="name" placeholder="Nombre" v-model="name" required>
-      <input type="email" placeholder="Correo">
-      <input type="password" name="password" placeholder="Contraseña" required>
-      <input type="password" name="password" placeholder="Repetir Contraseña" required>
-      <button type="submit">Enviar</button>
+   <form @submit.prevent="signup">
+      <input type="text" name="name" placeholder="Nombre" v-model="user.name" required>
+      <input type="email" name="email" v-model="user.email" placeholder="Correo">
+      <input type="password" name="password" v-model="user.password" placeholder="Contraseña" required>
+      <button>Enviar</button>
    </form>
    <router-link to="/" tag="button">Volver</router-link>
   </main>
@@ -15,14 +14,12 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-import {} from 'vuex'
 
 class User {
-  constructor(name, email, password, google) {
+  constructor(name, email, password) {
     this.name = name
     this.email = email
     this.password = password
-    this.google = google
   }
 }
 
@@ -30,15 +27,22 @@ export default Vue.extend({
   name: 'Signup',
   data() {
     return {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
+      user: new User()
     }
   },
   methods: {
-    validPassword() {
-
+    async signup() {
+      const data = await axios.post(`${process.env.VUE_APP_URI}/signup`, {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      })
+      this.user = new User()
+      if(data.data.success === true){
+        this.$router.push({name: 'signin'})
+      }else{
+        this.$router.push({name: 'control'})
+      } 
     }
   }
 })
