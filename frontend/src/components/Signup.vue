@@ -33,16 +33,16 @@ export default Vue.extend({
   methods: {
     async signup() {
       const data = await axios.post(`${process.env.VUE_APP_URI}/signup`, {
-        name: this.name,
-        email: this.email,
-        password: this.password
+        name: this.user.name,
+        email: this.user.email,
+        password: this.user.password
       })
-      this.user = new User()
-      if(data.data.success === true){
+      if(data.data.success){
         this.$router.push({name: 'signin'})
-      }else{
-        this.$router.push({name: 'control'})
-      } 
+      }else {
+        this.$router.push({name: 'signup'})
+      }
+      this.user = new User()
     }
   }
 })
