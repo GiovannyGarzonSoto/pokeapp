@@ -227,8 +227,8 @@ export default Vue.extend({
     color: #2c3e50;
     font-weight: bolder;
     padding: .3rem;
-    width: 13rem;
-    margin-top: 1rem;
+    width: 9rem;
+    margin: 1rem;
   }
   table{
     margin-top: 1rem;

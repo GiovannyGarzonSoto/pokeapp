@@ -8,12 +8,12 @@ class AbilitiesController {
                 .sort('name')
                 .exec()
             if(!data){
-                return res.status(400).json({
+                return res.status(404).json({
                     success: false,
                     message: 'Ha ocurrido un problema al listar las Habilidades'
                 })
             }
-            res.json({
+            res.status(200).json({
                 success: true,
                 data
             })

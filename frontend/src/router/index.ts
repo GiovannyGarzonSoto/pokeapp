@@ -10,6 +10,7 @@ const Selector = () => import('../components/Selector.vue').then(m => m.default)
 const Signin = () => import('../components/Signin.vue').then(m => m.default)
 const Signup = () => import('../components/Signup.vue').then(m => m.default)
 const Control = () => import('../views/Control.vue').then(m => m.default)
+const Details = () => import('../components/Details.vue').then(m => m.default)
 
 const routes = [
   {
@@ -37,6 +38,12 @@ const routes = [
     path: '/control',
     name: 'control',
     component: Control,
+    meta: {requireAuth: true}
+  },
+  {
+    path: '/selector/:pkmn',
+    name: 'details',
+    component: Details,
     meta: {requireAuth: true}
   }
 ]

@@ -40,9 +40,7 @@ export default Vue.extend({
         name: this.user.name,
         password: this.user.password
       })
-      this.user = new User()
-      const token = data.data.token
-      this.saveUser(token)
+      this.saveUser(data.data.token)
     }
   }
 })

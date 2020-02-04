@@ -38,6 +38,7 @@
 import Vue from 'vue';
 import axios from 'axios'
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import Swal from 'sweetalert2'
 
 class Ability {
   constructor(name, description) {
@@ -65,14 +66,30 @@ export default Vue.extend({
 
     async sendAbility() {
       if(!this.edit) {
-        const token = sessionStorage.getItem('token')
-        console.log(token)
-        const data = await axios.post(`${process.env.VUE_APP_URI}/abilities`, {
-          name: this.ability.name,
-          description: this.ability.description
-        }, {headers: {token: this.token}})
-        this.ability = new Ability()
-        this.getAbilities()
+        const swal = Swal.fire({
+        title: 'Guardar nueva Habilidad?',
+        text: 'Bpp bpp!',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Si!',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'La nueva Habilidad ha sido guardada',
+            'Pokedex actualizada',
+            'success'
+          )
+        }
+      })
+      const data = await axios.post(`${process.env.VUE_APP_URI}/abilities`, {
+            name: this.ability.name,
+            description: this.ability.description
+          }, {headers: {token: this.token}})
+          console.log(data)
+          this.ability = new Ability()
+          this.getAbilities()
+        /**/
       }else {
         await axios.put(`${process.env.VUE_APP_URI}/abilities/${this.editAbility}`, {
           name: this.ability.name,
