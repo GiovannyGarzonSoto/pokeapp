@@ -1,49 +1,51 @@
 <template>
-  <div>
-    <h1>Movimientos</h1>
+  <div class="move">
+    <h2 class="heading-3">Movimientos</h2>
 
-    <form @submit.prevent="sendMove">
-      <select v-model="move.type" required>
-        <option :value="type._id" v-for="type of allTypes" :key="type._id"> {{type.name}} </option>
-      </select>
-      <select v-model="move.clase" required>
-        <option :value="clase._id" v-for="clase of allClasses" :key="clase._id"> {{clase.name}} </option>
-      </select>
-      <input type="text" v-model="move.name" placeholder="Movimiento" required>
-      <textarea type="text" placeholder="Descripcion" v-model="move.description" required/>
-      <input type="text" placeholder="Potencia" v-model="move.power">
-      <input type="text" placeholder="Precision" v-model="move.accuracy">
+    <form @submit.prevent="sendMove" class="move-form">
+      <div class="move-form__selects">
+        <select v-model="move.type" required class="move-form__select">
+          <option :value="type._id" v-for="type of allTypes" :key="type._id"> {{type.name}} </option>
+        </select>
+        <select v-model="move.clase" required class="move-form__select">
+          <option :value="clase._id" v-for="clase of allClasses" :key="clase._id"> {{clase.name}} </option>
+        </select>
+      </div>
+      <input type="text" v-model="move.name" class="move-form__input" placeholder="Movimiento" required>
+      <textarea type="text" placeholder="Descripcion" class="move-form__input" v-model="move.description" required/>
+      <input type="text" placeholder="Potencia" class="move-form__input" v-model="move.power">
+      <input type="text" placeholder="Precision" class="move-form__input" v-model="move.accuracy">
       <template v-if="edit === false">
-        <button>Guardar</button>
+        <button class="btn">Guardar</button>
       </template>
       <template v-else>
-        <button>Actualizar</button>
+        <button class="btn">Actualizar</button>
       </template>
     </form>
 
-    <table>
+    <table class="move-table">
       <thead>
         <tr>
-          <th>Movimiento</th>
-          <th>Tipo</th>
-          <th>Categoria</th>
-          <th>Description</th>
-          <th>Potencia</th>
-          <th>Precision</th>
-          <th>Opciones</th>
+          <th class="heading-4 mr-sm">Movimiento</th>
+          <th class="heading-4 mr-sm">Tipo</th>
+          <th class="heading-4 mr-sm">Categoria</th>
+          <th class="heading-4 mr-sm">Description</th>
+          <th class="heading-4 mr-sm">Potencia </th>
+          <th class="heading-4 mr-sm">Precision</th>
+          <th class="heading-4 mr-sm">Opciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="move of allMoves" :key="move._id">
-          <td>{{move.name}} </td>
-          <td>{{move.type.name}}</td>
-          <td>{{move.clase.name}}</td>
-          <td>{{move.description}}</td>
-          <td>{{move.power}}</td>
-          <td>{{move.accuracy}}</td>
+        <tr v-for="move of allMoves" :key="move._id" class="move-table__row">
+          <td class="move-table__cell mr-sm">{{move.name}} </td>
+          <td class="move-table__cell mr-sm">{{move.type.name}}</td>
+          <td class="move-table__cell mr-sm">{{move.clase.name}}</td>
+          <td class="move-table__cell mr-sm">{{move.description}}</td>
+          <td class="move-table__cell mr-sm">{{move.power}}</td>
+          <td class="move-table__cell mr-sm">{{move.accuracy}}</td>
           <td class="buttons">
-            <button @click="updateMove(move._id)">Editar</button> 
-            <button @click="removeMove(move._id)">Eliminar</button>
+            <button class="btn" @click="updateMove(move._id)"><img src="../assets/lapiz.svg" class="buttons__img">Editar</button> 
+            <button class="btn" @click="removeMove(move._id)"><img src="../assets/basura.svg" class="buttons__img">Eliminar</button>
           </td>
         </tr>
       </tbody>
@@ -131,66 +133,3 @@ export default Vue.extend({
   }
 })
 </script>
-
-<style scoped lang="scss">
-  main{
-    display: flex;
-    flex-direction: column;
-    align-items: space-between;
-  }
-  form{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-
-    & input{
-      margin-top: 1rem;
-      border: 2px solid #364c63;
-      border-radius: .8rem;
-      padding: .3rem;
-    }
-
-    & select{
-      margin: .3rem;
-      font-family: sans-serif;
-      color: #2c3e50;
-      line-height: 1.1;
-      padding: .6em 1.4em .5em .8em;
-      border: 3px solid #2c3e50;
-      border-radius: .8rem;
-      width: 13rem;
-    }
-
-    & textarea{
-      margin-top: .8rem;
-      border: 2px solid #2c3e50;
-      border-radius: 1rem;
-      padding: .3rem;
-      width: 11rem;
-      height: 4rem;
-    }
-  }
-  button{
-    border: 3px solid #2c3e50;
-    border-radius: 1rem;
-    background: none;
-    color: #2c3e50;
-    font-weight: bolder;
-    padding: .3rem;
-    width: 13rem;
-    margin-top: 1rem;
-  }
-  table{
-    margin-top: 1rem;
-  }
-  .buttons{
-    display: flex;
-    justify-content: center;
-
-    & button{
-      width: 5rem;
-      margin: .2rem;
-    }
-  }
-</style>

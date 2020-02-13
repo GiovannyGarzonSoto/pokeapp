@@ -1,14 +1,14 @@
 <template>
-  <main>
-   <h1>Registrarse</h1>
-   <form @submit.prevent="signup">
-      <input type="text" name="name" placeholder="Nombre" v-model="user.name" required>
-      <input type="email" name="email" v-model="user.email" placeholder="Correo">
-      <input type="password" name="password" v-model="user.password" placeholder="Contraseña" required>
-      <button>Enviar</button>
+  <div class="signup">
+   <h2 class="heading-2 signup__title typed">Registrarse</h2>
+   <form @submit.prevent="signup" class="form">
+      <input type="text" name="name" class="form__input" placeholder="Nombre" v-model="user.name" required>
+      <input type="email" name="email" class="form__input" v-model="user.email" placeholder="Correo">
+      <input type="password" name="password" class="form__input" v-model="user.password" placeholder="Contraseña" required>
+      <button class="btn">Enviar</button>
    </form>
-   <router-link to="/" tag="button">Volver</router-link>
-  </main>
+   <router-link to="/" class="btn" tag="button">Volver</router-link>
+  </div>
 </template>
 
 <script>
@@ -47,33 +47,3 @@ export default Vue.extend({
   }
 })
 </script>
-
-<style scoped lang="scss">
-main{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-form{
-  display: flex;
-  flex-direction: column;
-
-  & input{
-    margin-top: 1rem;
-    border: 2px solid #364c63;
-    border-radius: .8rem;
-    padding: .3rem;
-  }
-}
-button{
-  border: 3px solid #2c3e50;
-  border-radius: 1rem;
-  background: none;
-  color: #2c3e50;
-  font-weight: bolder;
-  padding: .3rem;
-  width: 13rem;
-  margin-top: 1rem;
-}
-</style>

@@ -1,0 +1,46 @@
+.pokemon-form{
+
+    &__selects{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__select{
+        font-size: 1.5rem;
+        background: #eeeeee;
+        border: none;
+        box-shadow: var(--box-shadow-sm);
+        border-radius: .7rem;
+        padding: 1rem 1.5rem; 
+        margin: .5rem;
+    }
+
+    &__text{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #eeeeee;
+        border: none;
+        box-shadow: var(--box-shadow-sm);
+        border-radius: .5rem;
+        padding: 1rem 2rem;
+        margin: auto;
+    }
+
+    &__input{
+        border: none;
+        background: none;
+        border-radius: .7rem;
+        padding: 1rem 1.5rem;
+        margin: 1.2rem;
+        margin-bottom: 2rem;
+        width: 25rem;
+        box-shadow: var(--box-shadow-sm);
+        transition: .3s ease-in transform;
+
+        &:hover{
+            transform: scale(1.1)
+        }
+    }
+}

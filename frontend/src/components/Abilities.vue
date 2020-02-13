@@ -1,32 +1,32 @@
 <template>
-  <main>
-    <h1>Habilidades</h1>
-    <form @submit.prevent="sendAbility">
-      <input type="text" placeholder="Nombre" v-model="ability.name" required> 
-      <input type="text" placeholder="Descripcion" v-model="ability.description" required> 
+  <main class="ability">
+    <h3 class="heading-3">Habilidades</h3>
+    <form @submit.prevent="sendAbility" class="ability-form mb-md">
+      <input type="text" class="ability-form__input" placeholder="Nombre" v-model="ability.name" required> 
+      <input type="text" class="ability-form__input" placeholder="Descripcion" v-model="ability.description" required> 
       <template v-if="edit === false">
-        <button>Guardar</button>
+        <button class="btn"><img src="../assets/escritura.svg" class="ability-form__btn">Guardar</button>
       </template>
       <template v-else>
-        <button>Actualizar</button>
+        <button class="btn"><img src="../assets/escritura.svg" class="ability-form__btn"> Actualizar</button>
       </template>
     </form>
     
-    <table>
+    <table class="ability-table">
       <thead>
         <tr>
-          <th>Nombre</th>
-          <th>Descripcion</th>
-          <th>Opciones</th>
+          <th class="heading-4">Nombre</th>
+          <th class="heading-4">Descripcion</th>
+          <th class="heading-4">Opciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="ability of allAbilities" :key="ability._id">
-          <td>{{ability.name}}</td>
-          <td>{{ability.description}}</td>
+        <tr v-for="ability of allAbilities" :key="ability._id" class="ability-table__row">
+          <td class="ability-table__cell">{{ability.name}}</td>
+          <td class="ability-table__cell">{{ability.description}}</td>
           <td class="buttons">
-            <button @click="updateAbility(ability._id)">Editar</button> 
-            <button @click="removeAbility(ability._id)">Eliminar</button>
+            <button @click="updateAbility(ability._id)" class="btn"><img src="../assets/lapiz.svg" class="buttons__img"> Editar</button> 
+            <button @click="removeAbility(ability._id)" class="btn"><img src="../assets/basura.svg" class="buttons__img"> Eliminar</button>
           </td>
         </tr>
       </tbody>
@@ -117,46 +117,3 @@ export default Vue.extend({
   }
 })
 </script>
-
-<style scoped lang="scss">
-  main{
-    display: flex;
-    flex-direction: column;
-    align-items: space-between;
-  }
-  form{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-
-    & input{
-      margin-top: 1rem;
-      border: 2px solid #364c63;
-      border-radius: .8rem;
-      padding: .3rem;
-    }
-  }
-  button{
-    border: 3px solid #2c3e50;
-    border-radius: 1rem;
-    background: none;
-    color: #2c3e50;
-    font-weight: bolder;
-    padding: .3rem;
-    width: 13rem;
-    margin-top: 1rem;
-  }
-  table{
-    margin-top: 1rem;
-  }
-  .buttons{
-    display: flex;
-    justify-content: center;
-
-    & button{
-      width: 5rem;
-      margin: .2rem;
-    }
-  }
-</style>

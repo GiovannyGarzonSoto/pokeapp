@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "sass": "sass src/sass/main.scss:public/css/style.css --watch",
+    "compress": "sass src/sass/main.scss:public/css/style.css --style=compressed"
   },
   "dependencies": {
     "axios": "^0.19.0",

@@ -1,0 +1,12 @@
+:root{
+    --bc-light: #eeeeee;
+    --box-shadow: 
+        -1.2rem -1.2rem 1.2rem 0 rgb(255, 255, 255),
+        1.2rem 1.2rem 1.2rem 0 rgba(0, 0, 0, 0.2);
+    --box-shadow-sm: 
+        -.8rem -.8rem .8rem 0 rgb(255, 255, 255),
+        .8rem .8rem .8rem 0 rgba(0, 0, 0, 0.2);
+}
+//breakpoints
+$bp-medium: 56.25em;
+$bp-small: 37.5em;

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import decode from 'jwt-decode'
-import router from '../router'
+import router from './router'
 
 Vue.use(Vuex)
 

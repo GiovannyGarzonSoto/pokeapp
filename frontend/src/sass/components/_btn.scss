@@ -1,0 +1,26 @@
+.btn{
+    font-family: "Asap";
+    font-weight: 400;   
+    font-size: 1.7rem;
+    width: 15rem;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: .9rem;
+    box-shadow: var(--box-shadow);
+    margin: 1.6rem;
+    border-radius: .7em;
+    cursor: pointer;
+    transition: all .1s ease-out;
+
+    &:hover{
+        transform: translateY(-2px);
+    }
+
+    &:active{
+        transform: translateY(-2px) scale(0.9);
+        box-shadow: var(--box-shadow-sm);
+    }
+}

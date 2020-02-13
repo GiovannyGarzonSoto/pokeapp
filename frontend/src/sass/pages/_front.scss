@@ -1,0 +1,19 @@
+.front{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+    &__img{
+        width: 15rem;
+        border-radius: 50%;
+        animation: turn 10s linear infinite;
+        position: relative;
+        box-shadow: var(--box-shadow);
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        flex-direction: column;
+    }
+}

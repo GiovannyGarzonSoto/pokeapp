@@ -1,64 +1,66 @@
 <template>
-  <div>
-    <h1>Pokemon</h1>
+  <div class="pokemon">
+    <h3 class="heading-3">Pokemon</h3>
 
-    <form @submit.prevent="sendPkmn" class="form" enctype="multipart/form-data">
-      <div class="abilities">
-        <select v-model="pkmn.ability1" name="ability1" required>
+    <form @submit.prevent="sendPkmn" class="pokemon-form" enctype="multipart/form-data">
+      <div class="pokemon-form__selects">
+        <select v-model="pkmn.ability1" class="pokemon-form__select" name="ability1" required>
           <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
         </select>
-        <select v-model="pkmn.ability2" name="ability2" required>
+        <select v-model="pkmn.ability2" class="pokemon-form__select" name="ability2" required>
           <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
         </select>
-        <select v-model="pkmn.ability3" name="ability3" required>
+        <select v-model="pkmn.ability3" class="pokemon-form__select" name="ability3" required>
           <option :value="ability._id" v-for="ability of allAbilities" :key="ability._id">{{ability.name}}</option>
         </select>
       </div>
 
-     <div class="types">
-        <select v-model="pkmn.type1" name="type1" required>
+     <div class="pokemon-form__selects">
+        <select v-model="pkmn.type1" class="pokemon-form__select" name="type1" required>
           <option :value="type._id" v-for="type of allTypes" :key="type._id">{{type.name}}</option>
         </select>
-        <select v-model="pkmn.type2" name="type2" required>
+        <select v-model="pkmn.type2" class="pokemon-form__select" name="type2" required>
           <option :value="type._id" v-for="type of allTypes" :key="type._id">{{type.name}}</option>
         </select>
       </div>
     
-      <div class="groups">
-        <select v-model="pkmn.group1" name="group1" required>
+      <div class="pokemon-form__selects">
+        <select v-model="pkmn.group1" class="pokemon-form__select" name="group1" required>
           <option :value="group._id" v-for="group of allGroups" :key="group._id">{{group.name}}</option>
         </select>
-        <select v-model="pkmn.group2" name="group2" required>
+        <select v-model="pkmn.group2" class="pokemon-form__select" name="group2" required>
           <option :value="group._id" v-for="group of allGroups" :key="group._id">{{group.name}}</option>
         </select>
       </div>
 
-      <input type="text" v-model="pkmn.number" placeholder="Numero" name="number" required>
-      <input type="text" v-model="pkmn.name" placeholder="Nombre" name="name" required>
-      <textarea v-model="pkmn.description" placeholder="Descripcion" name="description" required></textarea>
-      <div class="data">
-        <input type="text" v-model="pkmn.weight" placeholder="Peso" name="weight" required>
-        <input type="text" v-model="pkmn.height" placeholder="Altura" name="height" required>
+      <div class="pokemon-form__selects">
+        <input type="text" v-model="pkmn.number" class="pokemon-form__input" placeholder="Numero" name="number" required>
+        <input type="text" v-model="pkmn.name" class="pokemon-form__input" placeholder="Nombre" name="name" required>
       </div>
-      <input type="text" v-model="pkmn.hp" placeholder="Hp" name="hp" required>
-      <div class="physical">
-        <input type="text" v-model="pkmn.attack" placeholder="Ataque" name="attack" required>
-        <input type="text" v-model="pkmn.defense" placeholder="Defensa" name="defense" required>
+      <textarea v-model="pkmn.description" class="pokemon-form__text" placeholder="Descripcion" name="description" required></textarea>
+      <div class="pokemon-form__selects">
+        <input type="text" class="pokemon-form__input" v-model="pkmn.weight" placeholder="Peso" name="weight" required>
+        <input type="text" class="pokemon-form__input" v-model="pkmn.height" placeholder="Altura" name="height" required>
       </div>
-      <div class="special">
-        <input type="text" v-model="pkmn.spAttack" placeholder="Ataque Esp" name="spAttack" required>
-        <input type="text" v-model="pkmn.spDefense" placeholder="Defensa Esp" name="spDefense" required>
+      <input type="text" class="pokemon-form__input" v-model="pkmn.hp" placeholder="Hp" name="hp" required>
+      <div class="pokemon-form__selects">
+        <input type="text" class="pokemon-form__input" v-model="pkmn.attack" placeholder="Ataque" name="attack" required>
+        <input type="text" class="pokemon-form__input" v-model="pkmn.defense" placeholder="Defensa" name="defense" required>
       </div>
-      <input type="text" v-model="pkmn.speed" placeholder="Velocidad" name="speed" required>
+      <div class="pokemon-form__selects">
+        <input type="text" class="pokemon-form__input" v-model="pkmn.spAttack" placeholder="Ataque Esp" name="spAttack" required>
+        <input type="text" class="pokemon-form__input" v-model="pkmn.spDefense" placeholder="Defensa Esp" name="spDefense" required>
+      </div>
+      <input type="text" class="pokemon-form__input" v-model="pkmn.speed" placeholder="Velocidad" name="speed" required>
       <label for="image" class="image">
         <i class="fas fa-cloud-upload-alt"></i> Subir imagen
       </label>
-      <input type="file" id="image" name="image" required>
+      <input type="file" class="pokemon-form__input--file" id="image" name="image" required>
       <template v-if="!edit">
-        <button>Guardar</button>
+        <button class="btn">Guardar</button>
       </template>
       <template v-else>
-        <button>Actualizar</button>
+        <button class="btn">Actualizar</button>
       </template>
     </form>
 
@@ -99,7 +101,7 @@
           <td>{{pkmn.spDefense}}</td>
           <td>{{pkmn.speed}}</td>
           <td>
-            <button @click="removePkmn(pkmn._id)">Eliminar</button>
+            <button @click="removePkmn(pkmn._id)" class="btn">Eliminar</button>
           </td>
         </tr>
       </tbody>
@@ -175,76 +177,3 @@ export default Vue.extend({
   }
 })
 </script>
-
-<style scoped lang="scss">
- main{
-    display: flex;
-    flex-direction: column;
-    align-items: space-between;
-  }
-  form{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-
-    & input{
-      margin-top: 1rem;
-      border: 2px solid #364c63;
-      border-radius: .8rem;
-      padding: .3rem;
-      margin: .3rem;
-    }
-
-    & input[type="file"]{
-      display: none;
-    }
-
-    & select{
-      margin: .3rem;
-      font-family: sans-serif;
-      color: #2c3e50;
-      line-height: 1.1;
-      padding: .6em 1.4em .5em .8em;
-      border: 3px solid #2c3e50;
-      border-radius: .8rem;
-      width: 13rem;
-    }
-
-    & textarea{
-      margin-top: .8rem;
-      border: 2px solid #2c3e50;
-      border-radius: 1rem;
-      padding: .3rem;
-      width: 11rem;
-      height: 4rem;
-    }
-  }
-  button{
-    border: 3px solid #2c3e50;
-    border-radius: 1rem;
-    background: none;
-    color: #2c3e50;
-    font-weight: bolder;
-    padding: .3rem;
-    width: 9rem;
-    margin: 1rem;
-  }
-  table{
-    margin-top: 1rem;
-  }
-  .image{
-    border: 2px solid #2c3e50;
-    border-radius: 1rem;
-    background: none;
-    color: #2c3e50;
-    font-weight: bolder;
-    padding: .3rem;
-    width: 9rem;
-    margin-top: 1rem;
-
-    &:hover{
-      width: 10rem;
-    }
-  }
-</style>
